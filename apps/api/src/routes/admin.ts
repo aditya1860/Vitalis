@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { createDoctorLeave, deleteDoctorLeave, getNotificationLogs, getAllDoctors, getAllAppointments } from '../controllers/admin.js';
+import { requireAuth } from '../middleware/auth.js';
+import { requireRole } from '../middleware/roles';
+const router = Router();
+router.use(requireAuth, requireRole('ADMIN'));
+router.get('/doctors', getAllDoctors);
+router.get('/appointments', getAllAppointments);
+router.post('/leave', createDoctorLeave);
+router.delete('/leave/:leaveId', deleteDoctorLeave);
+router.get('/notifications', getNotificationLogs);
+export default router;
